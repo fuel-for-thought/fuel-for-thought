@@ -68,3 +68,63 @@ dd { margin: 0 0 10px; }
   .footer-inner { flex-direction: column; }
   .footer-inner > :last-child { text-align: left; }
 }
+
+.goals-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(240px, 1fr); }
+#goals-form { grid-column: span 2; max-width: 610px; }
+#goals-form fieldset { border: 0; min-width: 0; margin: 0 0 20px; padding: 0; }
+#goals-form legend { padding: 0; margin-bottom: 8px; font-size: 1.2rem; font-weight: 700; }
+#goals-form fieldset p { margin: 0 0 8px; }
+#goals-form input[type=number], #goals-form textarea {
+  display: block; width: min(100%, 245px); padding: 7px 10px; margin-top: 6px;
+  border: 1px solid var(--line); border-radius: 4px; background: white;
+}
+#goals-form textarea { width: 100%; font: inherit; }
+.budget-input { display: flex; align-items: stretch; width: min(100%, 245px); margin-top: 6px; }
+.budget-input span { padding: 7px 11px; background: var(--soft); border: 1px solid var(--line); border-right: 0; border-radius: 4px 0 0 4px; }
+#goals-form .budget-input input { margin: 0; border-radius: 0 4px 4px 0; }
+.goal-options { display: flex; flex-wrap: wrap; gap: 7px; margin: 3px 0 12px; }
+.goal-choice { position: relative; cursor: pointer; }
+.goal-choice input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.goal-choice span { display: block; border: 1px solid var(--ink); border-radius: 99px; padding: 3px 11px; font-size: .83rem; font-weight: 700; }
+.goal-choice input:checked + span { background: var(--ink); color: white; }
+.goal-choice input:focus-visible + span { outline: 3px solid #ad6400; outline-offset: 3px; }
+.travel-options .goal-choice span { padding: 14px 12px; text-align: center; min-width: 75px; border-radius: 10px; }
+.travel-options .goal-choice input:checked + span { background: var(--green); border-color: var(--green); }
+#trip { display: block; width: min(100%, 340px); margin: 8px 0 0; accent-color: var(--ink); }
+#goals-form .button { border: 0; cursor: pointer; }
+.plan { background: var(--gold); }
+.plan .button { margin-top: 6px; }
+.place-banner { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 8px 20px; }
+.back-results { flex-basis: 100%; }
+.place-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 0 0 22px; }
+.place-stats div { border-left: 3px solid var(--ink); padding-left: 12px; }
+.place-stats dt { font-weight: 400; }
+.place-stats dd { margin: 0; font-weight: 700; font-size: 1.45rem; line-height: 1.15; }
+.place-layout { display: grid; grid-template-columns: minmax(0, 1.42fr) minmax(0, 1fr); gap: 24px; }
+.place-layout h2 { margin: 0 0 7px; font-size: 1.55rem; font-weight: 600; }
+.menu-table { width: 100%; border-collapse: collapse; }
+.menu-table th, .menu-table td { border-bottom: 1px solid var(--line); padding: 8px 6px; text-align: right; }
+.menu-table th:first-child { text-align: left; }
+.menu-table tbody th { font-weight: 400; }
+.menu-table .tag { margin-top: 3px; }
+.student-review { margin-top: 30px; }
+.place-map { margin: 0; }
+.map-art { position: relative; aspect-ratio: 1.08; border: 2px solid var(--ink); border-radius: 16px; overflow: hidden; background: #e2ede6; }
+.map-art::before { content: ''; position: absolute; width: 110%; height: 27%; top: -14%; left: 4%; border-radius: 50%; background: #ccdfd1; transform: rotate(9deg); }
+.map-campus { position: absolute; display: grid; place-items: center; width: 41%; height: 28%; left: 24%; top: 20%; transform: rotate(-10deg); background: #f4e5b0; border: 1px solid #d5b967; font-size: .82rem; font-weight: 700; }
+.map-road { position: absolute; display: block; background: white; }
+.university { width: 2.4%; height: 112%; top: -5%; left: 45%; transform: rotate(-3deg); }
+.side-road { width: 1.6%; height: 112%; top: -5%; left: 80%; transform: rotate(-14deg); }
+.king, .south { width: 110%; height: 2.4%; left: -5%; transform: rotate(-7deg); }
+.king { top: 68%; }
+.south { top: 84%; height: 1.6%; }
+.map-label { position: absolute; font-size: .72rem; font-weight: 700; }
+.avenue-label { left: 49%; top: 4%; }
+.king-label { left: 3%; top: 69%; }
+.map-pin { position: absolute; top: 50%; left: 42%; border: 3px solid var(--gold); border-radius: 50%; width: 28px; height: 28px; text-align: center; background: #ad304f; color: white; font-weight: 700; line-height: 22px; }
+@media (max-width: 675px) {
+  .goals-layout, .place-layout { grid-template-columns: 1fr; }
+  #goals-form { grid-column: auto; }
+  .place-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .menu-table { font-size: .85rem; }
+}

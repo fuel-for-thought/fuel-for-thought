@@ -1,4 +1,5 @@
 import { cp, mkdir, writeFile } from 'node:fs/promises';
+import { goals, pokeDetails } from './milestone-pages.mjs';
 
 const posts = [
   ['KE', 'kalani_eats', '2 hours ago', 'Mānoa Poke Stop', 5, 'Ask for the ¼ lb with no rice and add a side of edamame. $19 and around 49 g of protein, an 8-minute walk from Hamilton.', ['High protein', 'Budget'], 24],
@@ -37,9 +38,13 @@ const community = `<div class="columns"><section aria-label="Community posts">
 const pages = [
   ['', 'Community', 'Food finds from other UH students. Sign in to post, rate meals and mark tips as helpful.', community],
   ['find-food', 'Find food', 'Explore affordable meals near UH Mānoa.', `<div class="place-list">${posts.map((post, index) => `<article class="panel"><h2>${link(post[3], detail(index))}</h2><p>${post[5]}</p></article>`).join('')}</div><p class="fine">Sample listings for Milestone 1.</p>`],
-  ['my-goals', 'My goals', 'Plan meals around your budget and nutrition goals.', '<section class="panel narrow"><h2>Sample weekly goals</h2><dl><dt>Lunch budget</dt><dd>$12 per meal</dd><dt>Protein</dt><dd>25 g per meal</dd><dt>Plant-based meals</dt><dd>Twice a week</dd></dl><a class="button" href="/find-food">Explore meals</a></section>'],
+  ['my-goals', 'My goals', 'Tell us your budget, how you want to eat, and how you get around.', goals],
   ['sign-in', 'Sign in', 'Join the UH Mānoa food community.', '<section class="panel narrow"><h2>Student accounts</h2><p>Account access is planned for a later milestone. You can browse all sample posts now.</p><a class="button" href="/">Back to Community</a></section>'],
-  ...posts.map((post, index) => [detail(index).slice(1), post[3], 'Sample food listing near UH Mānoa', `<section class="narrow">${card(post, index)}<a href="/find-food">Back to Find food</a></section>`]),
+  ['place-1', posts[0][3], 'Restaurant on University Ave. ★ 4.6 from 38 sample reviews.', pokeDetails(posts[0])],
+  ...posts.slice(1).map((post, offset) => {
+    const index = offset + 1;
+    return [detail(index).slice(1), post[3], 'Sample food listing near UH Mānoa', `<section class="narrow">${card(post, index)}<a href="/find-food">Back to Find food</a></section>`];
+  }),
   ['project', 'Project home', 'Fuel for Thought is an ICS 314 project for University of Hawaiʻi at Mānoa students.', `<div class="project">
     <h2>GitHub</h2><p>${link('Organization', 'https://github.com/fuel-for-thought')} · ${link('All repositories', 'https://github.com/orgs/fuel-for-thought/repositories')} · ${link('Source repository', 'https://github.com/fuel-for-thought/fuel-for-thought')}</p>
     <h2>Team Contract</h2><p>The approved team contract link is pending.</p>
@@ -55,14 +60,18 @@ for (const [slug, title, subtitle, content] of pages) {
   await writeFile(`dist/${slug || 'index'}.html`, `<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${title} | Fuel for Thought</title><link rel="stylesheet" href="/style.css"><script type="module" src="/community.js"></script></head>
+<title>${title} | Fuel for Thought</title><link rel="stylesheet" href="/style.css"><script type="module" src="/community.js"></script>${slug === 'my-goals' ? '<script type="module" src="/goals.js"></script>' : ''}</head>
 <body>
 <header class="site-nav"><nav class="wrap" aria-label="Main navigation">
 <a href="/" class="brand">Fuel for Thought</a>
 ${tabs.map(([label, href]) => `<a href="${href}"${href === '/' + slug ? ' aria-current="page"' : ''}>${label}</a>`).join('')}
 <a class="signin" href="/sign-in">Sign in <span aria-hidden="true">▾</span></a>
 </nav></header>
-<main><header class="banner"><div class="wrap"><h1>${title}</h1><p>${subtitle}</p></div></header>
+<main><header class="banner"><div class="wrap${slug === 'place-1' ? ' place-banner' : ''}">
+${slug === 'place-1' ? '<a class="back-results" href="/find-food">Back to results</a>' : ''}
+<div><h1>${title}</h1><p>${subtitle}</p></div>
+${slug === 'place-1' ? '<a class="button" href="/sign-in">♥ Save to favorites</a>' : ''}
+</div></header>
 <div class="wrap content">${content}</div></main>
 <footer class="site-footer"><div class="wrap footer-inner"><div><strong>Fuel for Thought</strong><br>Affordable, healthy food near UH Mānoa.</div><div>An ICS 314 project, University of Hawaiʻi at Mānoa<br><a href="/project">Project home page</a></div></div></footer>
 </body></html>`);
