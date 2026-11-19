@@ -38,7 +38,7 @@ function updatePlan() {
 
 form.addEventListener('input', () => {
   updatePlan();
-  status.textContent = 'Milestone 1 mockup. Goals are saved in this browser.';
+  status.textContent = 'Your goals are saved in this browser.';
 });
 
 form.addEventListener('submit', event => {
