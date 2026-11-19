@@ -54,24 +54,44 @@ const landing = `<section class="hero"><div class="wrap hero-inner">
     <li><strong>Share what worked.</strong> Post finds for other students.</li>
   </ol>
 </div></section>
-<section class="cta"><div class="wrap cta-inner"><h2>Ready to find your next meal?</h2><a class="button button-gold" href="/sign-in">Get started</a></div></section>`;
+<section class="cta"><div class="wrap cta-inner"><h2>Ready to find your next meal?</h2><a class="button button-gold" href="/sign-up">Get started</a></div></section>`;
 
 const pages = [
   ['', 'Home', '', landing],
   ['community', 'Community', 'Food finds from other UH students. Sign in to post, rate meals and mark tips as helpful.', community],
   ['find-food', 'Find food', 'Explore affordable meals near UH Mānoa.', `<div class="place-list">${posts.map((post, index) => `<article class="panel"><h2>${link(post[3], detail(index))}</h2><p>${post[5]}</p></article>`).join('')}</div><p class="fine">Sample listings for Milestone 1.</p>`],
   ['my-goals', 'My goals', 'Tell us your budget, how you want to eat, and how you get around.', goals],
-  ['sign-in', 'Sign in', 'Join the UH Mānoa food community.', `<section class="sign-in-card">
+  ['sign-in', 'Sign in', 'Welcome back to the UH Mānoa food community.', `<section class="sign-in-card">
     <h2>Student sign-in</h2>
-    <p>Try the sign-in flow with a sample email address.</p>
-    <form id="sign-in-preview">
-      <label for="student-email">Student email</label>
-      <input id="student-email" type="email" placeholder="student@example.com" autocomplete="off" required>
-      <button class="button" type="submit">Continue</button>
-      <p id="sign-in-status" class="fine" role="status">Demo only. No account is created.</p>
+    <form id="auth-form" data-mode="signin" novalidate>
+      <label for="email">UH email</label>
+      <input id="email" name="email" type="email" placeholder="you@hawaii.edu" autocomplete="email" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" required>
+      <button class="button" type="submit">Sign in</button>
+      <p id="auth-status" class="form-status" role="status" aria-live="polite"></p>
     </form>
+    <p class="auth-switch">New to Fuel for Thought? <a href="/sign-up">Create an account</a></p>
     <a class="guest-link" href="/community">Browse Community as a guest</a>
-  </section><script type="module" src="/sign-in.js"></script>`],
+  </section><script type="module" src="/auth-form.js"></script>`],
+  ['sign-up', 'Sign up', 'Create your account with your UH email.', `<section class="sign-in-card">
+    <h2>Create an account</h2>
+    <form id="auth-form" data-mode="signup" novalidate>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required>
+      <label for="email">UH email</label>
+      <input id="email" name="email" type="email" placeholder="you@hawaii.edu" autocomplete="email" required>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="password-hint">
+      <small id="password-hint">At least 8 characters.</small>
+      <label for="confirm">Confirm password</label>
+      <input id="confirm" name="confirm" type="password" autocomplete="new-password" required>
+      <button class="button" type="submit">Create account</button>
+      <p id="auth-status" class="form-status" role="status" aria-live="polite"></p>
+    </form>
+    <p class="auth-switch">Already have an account? <a href="/sign-in">Sign in</a></p>
+    <a class="guest-link" href="/community">Browse Community as a guest</a>
+  </section><script type="module" src="/auth-form.js"></script>`],
   ['place-1', posts[0][3], 'Restaurant on University Ave. ★ 4.6 from 38 sample reviews.', pokeDetails(posts[0])],
   ...posts.slice(1).map((post, offset) => {
     const index = offset + 1;
@@ -92,12 +112,12 @@ for (const [slug, title, subtitle, content] of pages) {
   await writeFile(`dist/${slug || 'index'}.html`, `<!doctype html>
 <html lang="en">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${title} | Fuel for Thought</title><link rel="stylesheet" href="/style.css"><script type="module" src="/community.js"></script>${slug === 'my-goals' ? '<script type="module" src="/goals.js"></script>' : ''}</head>
+<title>${title} | Fuel for Thought</title><link rel="stylesheet" href="/style.css"><script type="module" src="/community.js"></script><script type="module" src="/auth-nav.js"></script>${slug === 'my-goals' ? '<script type="module" src="/goals.js"></script>' : ''}</head>
 <body>
 <header class="site-nav"><nav class="wrap" aria-label="Main navigation">
 <a href="/" class="brand">Fuel for Thought</a>
 ${tabs.map(([label, href]) => `<a href="${href}"${href === '/' + slug ? ' aria-current="page"' : ''}>${label}</a>`).join('')}
-<a class="signin" href="/sign-in">Sign in <span aria-hidden="true">▾</span></a>
+<a class="signin" id="auth-nav" href="/sign-in">Sign in</a>
 </nav></header>
 <main>${slug === '' ? content : `<header class="banner"><div class="wrap${slug === 'place-1' ? ' place-banner' : ''}">
 ${slug === 'place-1' ? '<a class="back-results" href="/find-food">Back to results</a>' : ''}
