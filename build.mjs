@@ -39,7 +39,17 @@ const pages = [
   ['', 'Community', 'Food finds from other UH students. Sign in to post, rate meals and mark tips as helpful.', community],
   ['find-food', 'Find food', 'Explore affordable meals near UH Mānoa.', `<div class="place-list">${posts.map((post, index) => `<article class="panel"><h2>${link(post[3], detail(index))}</h2><p>${post[5]}</p></article>`).join('')}</div><p class="fine">Sample listings for Milestone 1.</p>`],
   ['my-goals', 'My goals', 'Tell us your budget, how you want to eat, and how you get around.', goals],
-  ['sign-in', 'Sign in', 'Join the UH Mānoa food community.', '<section class="panel narrow"><h2>Student accounts</h2><p>Account access is planned for a later milestone. You can browse all sample posts now.</p><a class="button" href="/">Back to Community</a></section>'],
+  ['sign-in', 'Sign in', 'Join the UH Mānoa food community.', `<section class="sign-in-card">
+    <h2>Student sign-in</h2>
+    <p>Try the sign-in flow with a sample email address.</p>
+    <form id="sign-in-preview">
+      <label for="student-email">Student email</label>
+      <input id="student-email" type="email" placeholder="student@example.com" autocomplete="off" required>
+      <button class="button" type="submit">Continue</button>
+      <p id="sign-in-status" class="fine" role="status">Demo only. No account is created.</p>
+    </form>
+    <a class="guest-link" href="/">Browse Community as a guest</a>
+  </section><script type="module" src="/sign-in.js"></script>`],
   ['place-1', posts[0][3], 'Restaurant on University Ave. ★ 4.6 from 38 sample reviews.', pokeDetails(posts[0])],
   ...posts.slice(1).map((post, offset) => {
     const index = offset + 1;

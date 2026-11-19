@@ -128,3 +128,21 @@ dd { margin: 0 0 10px; }
   .place-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .menu-table { font-size: .85rem; }
 }
+
+.sign-in-card {
+  width: min(100%, 440px);
+  margin: 16px auto 24px;
+  padding: clamp(20px, 5vw, 32px);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--gold);
+  border-radius: 14px;
+  background: var(--soft);
+}
+.sign-in-card h2 { margin: 0; font-size: 1.45rem; }
+.sign-in-card h2 + p { margin: 4px 0 22px; color: var(--muted); }
+.sign-in-card label { display: block; margin-bottom: 6px; font-weight: 700; }
+.sign-in-card input, .sign-in-card .button { width: 100%; min-height: 44px; }
+.sign-in-card input { padding: 8px 12px; border: 1px solid #52615e; border-radius: 7px; }
+.sign-in-card .button { margin-top: 14px; border: 0; cursor: pointer; }
+.sign-in-card .fine { margin: 8px 0 18px; }
+.sign-in-card .guest-link { display: block; border-top: 1px solid var(--line); padding-top: 16px; text-align: center; }
