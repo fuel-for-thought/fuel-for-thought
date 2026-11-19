@@ -172,3 +172,18 @@ dd { margin: 0 0 10px; }
 @media (max-width: 675px) {
   .hero-inner, .steps { grid-template-columns: 1fr; }
 }
+
+/* Accounts (issue-3) */
+.sign-in-card h2 { margin-bottom: 18px; }
+.sign-in-card label { margin-top: 14px; }
+.sign-in-card label:first-of-type { margin-top: 0; }
+.sign-in-card small { margin-top: 5px; }
+.sign-in-card .button:disabled { opacity: .6; cursor: wait; }
+.form-status { min-height: 1.2em; margin: 10px 0 14px; font-size: .88rem; }
+.form-status[data-kind=error] { color: #a3261b; }
+.form-status[data-kind=success] { color: #276749; }
+.form-status[data-kind=info] { color: var(--muted); }
+.auth-switch { margin: 0 0 16px; text-align: center; font-size: .9rem; }
+.signed-in { display: flex; align-items: center; gap: 12px; font-size: .9rem; font-weight: 700; }
+.signed-in button { background: transparent; border: 1px solid #eef3ef; border-radius: 999px; padding: 3px 12px; font-size: .8rem; font-weight: 700; cursor: pointer; }
+.signed-in button:hover { background: #eef3ef; color: var(--ink); }
