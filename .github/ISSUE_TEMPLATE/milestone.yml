@@ -1,0 +1,36 @@
+name: Milestone task
+description: Track work for Fuel for Thought Milestone 1 or Milestone 2.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        After GitHub assigns the issue number, use `issue-<number>` for the work branch. For example, issue #12 uses `issue-12`.
+  - type: dropdown
+    id: milestone
+    attributes:
+      label: Milestone
+      options:
+        - M1
+        - M2
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Explain the outcome and how you will verify it.
+    validations:
+      required: true
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: Use a Markdown checkbox for each task. Update the checklist as work progresses.
+      value: |
+        - [ ] Describe the first task.
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        Add this issue to its GitHub Project. Record Estimated Effort (hours) and Estimator before starting. Record Coding Effort (hours) and Non-Coding Effort (hours) from your team's actual time before closing.
