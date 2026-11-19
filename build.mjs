@@ -7,7 +7,7 @@ const posts = [
   ['DC', 'dorm_chef', '2 days ago', 'Puck’s Alley Market', 4, 'Half a rotisserie chicken for $7 covers two meals. Pair it with brown rice for a study night.', ['High protein', 'Budget'], 19],
   ['LW', 'leiwalks', '3 days ago', 'Paradise Palms Café', 4, 'The parfait is my favorite low-calorie option on upper campus. Go before class to avoid the lunch line.', ['Low calorie'], 7],
 ];
-const tabs = [['Find food', '/find-food'], ['Community', '/'], ['My goals', '/my-goals']];
+const tabs = [['Home', '/'], ['Find food', '/find-food'], ['Community', '/community'], ['My goals', '/my-goals']];
 const filters = ['Budget', 'High protein', 'Low calorie', 'Vegan'];
 const detail = index => '/place-' + (index + 1);
 const link = (label, href) => `<a href="${href}">${label}</a>`;
@@ -35,8 +35,30 @@ const community = `<div class="columns"><section aria-label="Community posts">
   <section class="panel"><h2>Posting guidelines</h2><p>Share what you paid, what you ordered and how you got there. Keep it kind. Moderators remove posts that target people or businesses.</p></section>
 </aside></div>`;
 
+const landing = `<section class="hero"><div class="wrap hero-inner">
+  <div>
+    <h1>Eat well on a student budget.</h1>
+    <p class="lead">Find affordable, healthy food near campus that fits your budget, diet, and commute.</p>
+    <div class="hero-actions"><a class="button button-gold" href="/find-food">Find food</a><a class="button button-outline" href="/sign-in">Sign in</a></div>
+  </div>
+  <div class="hero-card" aria-hidden="true">
+    <span class="hero-stat">$4.29</span><span>per meal on a $60 weekly budget</span>
+    <span class="hero-stat">8 min</span><span>walk to a high-protein poke bowl</span>
+  </div>
+</div></section>
+<section class="how"><div class="wrap">
+  <h2>How it works</h2>
+  <ol class="steps">
+    <li><strong>Set your goals.</strong> Budget, diet, and how you get around.</li>
+    <li><strong>Find matches.</strong> Compare cost per meal and distance.</li>
+    <li><strong>Share what worked.</strong> Post finds for other students.</li>
+  </ol>
+</div></section>
+<section class="cta"><div class="wrap cta-inner"><h2>Ready to find your next meal?</h2><a class="button button-gold" href="/sign-in">Get started</a></div></section>`;
+
 const pages = [
-  ['', 'Community', 'Food finds from other UH students. Sign in to post, rate meals and mark tips as helpful.', community],
+  ['', 'Home', '', landing],
+  ['community', 'Community', 'Food finds from other UH students. Sign in to post, rate meals and mark tips as helpful.', community],
   ['find-food', 'Find food', 'Explore affordable meals near UH Mānoa.', `<div class="place-list">${posts.map((post, index) => `<article class="panel"><h2>${link(post[3], detail(index))}</h2><p>${post[5]}</p></article>`).join('')}</div><p class="fine">Sample listings for Milestone 1.</p>`],
   ['my-goals', 'My goals', 'Tell us your budget, how you want to eat, and how you get around.', goals],
   ['sign-in', 'Sign in', 'Join the UH Mānoa food community.', `<section class="sign-in-card">
@@ -48,7 +70,7 @@ const pages = [
       <button class="button" type="submit">Continue</button>
       <p id="sign-in-status" class="fine" role="status">Demo only. No account is created.</p>
     </form>
-    <a class="guest-link" href="/">Browse Community as a guest</a>
+    <a class="guest-link" href="/community">Browse Community as a guest</a>
   </section><script type="module" src="/sign-in.js"></script>`],
   ['place-1', posts[0][3], 'Restaurant on University Ave. ★ 4.6 from 38 sample reviews.', pokeDetails(posts[0])],
   ...posts.slice(1).map((post, offset) => {
@@ -60,7 +82,7 @@ const pages = [
     <h2>Team Contract</h2><p>The approved team contract link is pending.</p>
     <h2>Deployment</h2><p>The Vercel deployment link is pending.</p>
     <h2>Milestones</h2><ul><li>M1 project board link is pending.</li><li>M2 project board link is pending.</li></ul>
-    <h2>Screenshots</h2>${['Community', 'Find food', 'My goals', 'Sign in', 'Place details'].map((name, i) => `<figure><img src="/screenshots/${['community', 'find-food', 'my-goals', 'sign-in', 'place-details'][i]}.png" alt="${name} page screenshot" loading="lazy"><figcaption>${name}</figcaption></figure>`).join('')}
+    <h2>Screenshots</h2>${['Landing', 'Community', 'Find food', 'My goals', 'Sign in', 'Place details'].map((name, i) => `<figure><img src="/screenshots/${['landing', 'community', 'find-food', 'my-goals', 'sign-in', 'place-details'][i]}.png" alt="${name} page screenshot" loading="lazy"><figcaption>${name}</figcaption></figure>`).join('')}
   </div>`],
 ];
 
@@ -77,12 +99,12 @@ for (const [slug, title, subtitle, content] of pages) {
 ${tabs.map(([label, href]) => `<a href="${href}"${href === '/' + slug ? ' aria-current="page"' : ''}>${label}</a>`).join('')}
 <a class="signin" href="/sign-in">Sign in <span aria-hidden="true">▾</span></a>
 </nav></header>
-<main><header class="banner"><div class="wrap${slug === 'place-1' ? ' place-banner' : ''}">
+<main>${slug === '' ? content : `<header class="banner"><div class="wrap${slug === 'place-1' ? ' place-banner' : ''}">
 ${slug === 'place-1' ? '<a class="back-results" href="/find-food">Back to results</a>' : ''}
 <div><h1>${title}</h1><p>${subtitle}</p></div>
 ${slug === 'place-1' ? '<a class="button" href="/sign-in">♥ Save to favorites</a>' : ''}
 </div></header>
-<div class="wrap content">${content}</div></main>
-<footer class="site-footer"><div class="wrap footer-inner"><div><strong>Fuel for Thought</strong><br>Affordable, healthy food near UH Mānoa.</div><div>An ICS 314 project, University of Hawaiʻi at Mānoa<br><a href="/project">Project home page</a></div></div></footer>
+<div class="wrap content">${content}</div>`}</main>
+<footer class="site-footer"><div class="wrap footer-inner"><div><strong>Fuel for Thought</strong><br>Affordable, healthy food near UH Mānoa.</div><div>An ICS 314 project, University of Hawaiʻi at Mānoa<br><a href="https://fuel-for-thought.github.io/fuel-for-thought.io/">Project home page</a></div></div></footer>
 </body></html>`);
 }
