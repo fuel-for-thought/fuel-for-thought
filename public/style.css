@@ -148,7 +148,7 @@ dd { margin: 0 0 10px; }
 .sign-in-card .guest-link { display: block; border-top: 1px solid var(--line); padding-top: 16px; text-align: center; }
 
 /* Landing page (issue-10) */
-.hero { background: var(--ink); color: #eef3ef; padding: clamp(40px, 8vw, 84px) 0; }
+.hero { background: linear-gradient(90deg, rgba(31, 43, 41, .92) 0%, rgba(31, 43, 41, .78) 45%, rgba(31, 43, 41, .45) 100%), url(/images/campus.jpg) center 35% / cover no-repeat var(--ink); color: #eef3ef; padding: clamp(48px, 9vw, 104px) 0; }
 .hero-inner { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 40px; align-items: center; }
 .hero h1 { margin: 0 0 14px; font-size: clamp(2.2rem, 6vw, 3.4rem); line-height: 1.08; letter-spacing: -.035em; }
 .lead { margin: 0 0 26px; font-size: 1.1rem; max-width: 560px; color: #d7e2dc; }
@@ -171,4 +171,5 @@ dd { margin: 0 0 10px; }
 .cta h2 { margin: 0; font-size: 1.6rem; }
 @media (max-width: 675px) {
   .hero-inner, .steps { grid-template-columns: 1fr; }
+  .hero { background: linear-gradient(rgba(31, 43, 41, .82), rgba(31, 43, 41, .82)), url(/images/campus.jpg) 62% 35% / cover no-repeat var(--ink); }
 }
