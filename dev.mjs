@@ -14,7 +14,7 @@ if (existsSync('.env.local')) {
 const apiRoot = fileURLToPath(new URL('./api', import.meta.url));
 
 const root = fileURLToPath(new URL('./dist', import.meta.url));
-const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png' };
+const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml' };
 const port = Number(process.env.PORT || 3000);
 
 createServer(async (request, response) => {

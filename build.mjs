@@ -7,7 +7,7 @@ const posts = [
   ['DC', 'dorm_chef', '2 days ago', 'Puck’s Alley Market', 4, 'Half a rotisserie chicken for $7 covers two meals. Pair it with brown rice for a study night.', ['High protein', 'Budget'], 19],
   ['LW', 'leiwalks', '3 days ago', 'Paradise Palms Café', 4, 'The parfait is my favorite low-calorie option on upper campus. Go before class to avoid the lunch line.', ['Low calorie'], 7],
 ];
-const tabs = [['Home', '/'], ['Find food', '/find-food'], ['Community', '/community'], ['My goals', '/my-goals']];
+const tabs = [['Find food', '/find-food'], ['Community', '/community'], ['My goals', '/my-goals']];
 const filters = ['Budget', 'High protein', 'Low calorie', 'Vegan'];
 const detail = index => '/place-' + (index + 1);
 const link = (label, href) => `<a href="${href}">${label}</a>`;
@@ -35,26 +35,20 @@ const community = `<div class="columns"><section aria-label="Community posts">
   <section class="panel"><h2>Posting guidelines</h2><p>Share what you paid, what you ordered and how you got there. Keep it kind. Moderators remove posts that target people or businesses.</p></section>
 </aside></div>`;
 
-const landing = `<section class="hero"><div class="wrap hero-inner">
-  <div>
-    <h1>Eat well on a student budget.</h1>
-    <p class="lead">Find affordable, healthy food near campus that fits your budget, diet, and commute.</p>
-    <div class="hero-actions"><a class="button button-gold" href="/find-food">Find food</a><a class="button button-outline" href="/sign-in">Sign in</a></div>
-  </div>
-  <div class="hero-card" aria-hidden="true">
-    <span class="hero-stat">$4.29</span><span>per meal on a $60 weekly budget</span>
-    <span class="hero-stat">8 min</span><span>walk to a high-protein poke bowl</span>
-  </div>
+const picks = [[0, 'from $8', '8 min walk'], [2, 'from $3', '18 min walk'], [1, 'from $2', '42 min walk']];
+const firstSentence = text => text.split('. ')[0].replace(/\.?$/, '.');
+const landing = `<section class="hero"><div class="wrap">
+  <h1>Good food near Mānoa that won’t wreck your budget.</h1>
+  <p class="lead">Real prices, walk times and tips from other UH students.</p>
+  <div class="hero-actions"><a class="button button-gold" href="/find-food">Find food</a><a class="hero-link" href="/sign-in">Sign in</a></div>
 </div></section>
-<section class="how"><div class="wrap">
-  <h2>How it works</h2>
-  <ol class="steps">
-    <li><strong>Set your goals.</strong> Budget, diet, and how you get around.</li>
-    <li><strong>Find matches.</strong> Compare cost per meal and distance.</li>
-    <li><strong>Share what worked.</strong> Post finds for other students.</li>
-  </ol>
-</div></section>
-<section class="cta"><div class="wrap cta-inner"><h2>Ready to find your next meal?</h2><a class="button button-gold" href="/sign-up">Get started</a></div></section>`;
+<section class="picks"><div class="wrap">
+  <div class="picks-head"><h2>What students are eating this week</h2><a href="/community">See all posts</a></div>
+  <ul class="pick-list">${picks.map(([i, price, walk]) => `<li>
+    <a href="${detail(i)}">${posts[i][3]}</a><span class="pick-meta">${price} · ${walk}</span>
+    <p>“${firstSentence(posts[i][5])}” <span class="pick-by">${posts[i][1]}</span></p>
+  </li>`).join('')}</ul>
+</div></section>`;
 
 const pages = [
   ['', 'Home', '', landing],

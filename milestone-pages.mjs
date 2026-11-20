@@ -28,7 +28,7 @@ export const goals = `<div class="columns goals-layout">
     <input id="trip" name="trip" type="range" min="5" max="45" value="20">
   </fieldset>
   <button class="button" type="submit">Save goals</button>
-  <p class="fine" id="goals-status" role="status">Milestone 1 mockup. Goals are saved in this browser.</p>
+  <p class="fine" id="goals-status" role="status">Your goals are saved in this browser.</p>
 </form>
 <aside class="panel plan" aria-labelledby="plan-heading">
   <h2 id="plan-heading">Your plan</h2>
